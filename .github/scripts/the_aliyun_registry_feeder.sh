@@ -6,7 +6,7 @@
 #文件依赖
 #⚠️import--需要引入包含函数的文件
 # none
-local aliyun_image_file=./images.yaml
+aliyun_image_file=./images.yaml
 
 the_aliyun_registry_feeder() {
   local my_src_image=$1
