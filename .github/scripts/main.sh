@@ -26,5 +26,5 @@ main() {
     echo "❌error--登录失败"
     return 1
   fi
-  the_repo_sync $my_src_registry $my_dest_registry
+  the_repo_sync $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_url
 }
