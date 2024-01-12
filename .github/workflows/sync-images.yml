@@ -2,27 +2,45 @@ name: sync-images
 
 on:
     push:
-    # 设置定时任务，每 3 小时运行一次
+    # 设置定时任务，每 4 小时运行一次
     schedule:
-        - cron: "0 */3 * * *"
+        - cron: "0 */4 * * *"
 
 jobs:
-    sync-images:
+    job1:
         runs-on: ubuntu-22.04
+        env:
+            my_src_registry_username: ${{ secrets.my_src_registry_username }}
+            my_src_registry_password: ${{ secrets.my_src_registry_password }}
+            my_src_registry_url: ${{ secrets.my_src_registry_url }}
+            my_dest_registry_username: ${{ secrets.my_dest_registry_username }}
+            my_dest_registry_password: ${{ secrets.my_dest_registry_password }}
+            my_dest_registry_url: ${{ secrets.my_dest_registry_url }}
+            my_aliyun_registry_username: ${{ secrets.my_aliyun_registry_username }}
+            my_aliyun_registry_password: ${{ secrets.my_aliyun_registry_password }}
+            my_aliyun_registry_namespaced_url: ${{ secrets.my_aliyun_registry_namespaced_url }}
         steps:
             - name: Clone repository
               uses: actions/checkout@v2
             - name: registry login & sync 🚩仓库登录&镜像同步
               shell: bash
-              env:
-                  my_src_registry_username: ${{ secrets.my_src_registry_username }}
-                  my_src_registry_password: ${{ secrets.my_src_registry_password }}
-                  my_src_registry_url: ${{ secrets.my_src_registry_url }}
-                  my_dest_registry_username: ${{ secrets.my_dest_registry_username }}
-                  my_dest_registry_password: ${{ secrets.my_dest_registry_password }}
-                  my_dest_registry_url: ${{ secrets.my_dest_registry_url }}
               run: |
                   date
                   echo 'hello there! Ready to sync all repos--准备同步镜像'
                   source ./.github/scripts/main.sh
-                  main $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url
+                  main $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url $my_aliyun_registry_username $my_aliyun_registry_password $my_aliyun_registry_namespaced_url
+            - name: Make a images.yaml to feed aliyun-✍️投喂文件给阿里云
+              shell: bash
+              run: |
+                  date
+                  echo 'Ready to sync all to Aliyun--准备同步镜像到阿里云'
+                  source ./.github/scripts/main.sh
+                  cat ./images.yaml
+            - name: Checkout
+              uses: actions/checkout@v3
+            - uses: hhyasdf/image-sync-action@v1.1
+              with:
+                  auth_file: ./auth.yaml # The auth information file of registries, optional.
+                  images_file: ./images.yaml # The images file descirbes which images need to sync, always needed.
+                  version: latest # The version of image-syncer, use the latest version if not specified.
+                  proc: 6 # The max number of goroutines to sync images, default value is 5.

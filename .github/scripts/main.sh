@@ -15,6 +15,9 @@ main() {
   local my_dest_registry_username=$4
   local my_dest_registry_password=$5
   local my_dest_registry_url=$6
+  local my_aliyun_registry_username=$7
+  local my_aliyun_registry_password=$8
+  local my_aliyun_registry_namespaced_url=$9
 
   the_repo_login $my_src_registry_username $my_src_registry_password $my_src_registry_url
   if [ $? -ne 0 ]; then
@@ -26,5 +29,5 @@ main() {
     echo "❌error--登录失败"
     return 1
   fi
-  the_repo_sync $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_url
+  the_repo_sync $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_url $my_aliyun_registry_namespaced_url
 }

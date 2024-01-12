@@ -1,0 +1,3 @@
+registry.cn-hangzhou.aliyuncs.com:
+  username: ${my_aliyun_registry_username}
+  password: ${my_aliyun_registry_password}
