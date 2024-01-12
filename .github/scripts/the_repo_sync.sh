@@ -22,12 +22,10 @@ the_repo_sync() {
   echo "检查通过，开始同步镜像"
   # 遍历镜像并同步
   local i=0
-  echo $i
   for my_image in ${all_images_arr[@]}; do
-    # 提取镜像名
-    echo "📦镜像名："$my_image
     local my_image_name=$(echo $my_image | sed "s/$my_src_registry_url\///")
-    ((i++))
+    echo "📦镜像名："$my_image_name
+    let i++
     echo "⌛Task."$i": syncing--正在同步"$my_image_name
     # 构建源和目标镜像的完整路径
     local src_image_path="docker://$my_src_registry_url/$my_image_name"
