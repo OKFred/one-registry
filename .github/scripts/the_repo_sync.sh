@@ -19,14 +19,13 @@ the_repo_sync() {
   local all_images_str=$(echo $str | jq -r '.repositories[]')
   all_images_arr=(${all_images_str// / })
   echo "📦Total images: "${#all_images_arr[@]}
-  #检查命令可用性
-  sudo apt install sed -y
-  echo "Checking skopeo--检查 skopeo 命令是否可用" && command -v skopeo >/dev/null 2>&1 || { echo >&2 "❌Skopeo is not installed. Please install it first. Skopeo 未安装，请先安装."; exit 1; }
-  echo "Checking sed--检查 sed 命令是否可用" && command -v sed >/dev/null 2>&1 || { echo >&2 "❌Sed is not installed. Please install it first. Sed 未安装，请先安装."; exit 1; }
+  echo "检查通过，开始同步镜像"
   # 遍历镜像并同步
   local i=0
+  echo $i
   for my_image in ${all_images_arr[@]}; do
     # 提取镜像名
+    echo "📦镜像名："$my_image
     local my_image_name=$(echo $my_image | sed "s/$my_src_registry_url\///")
     ((i++))
     echo "⌛Task."$i": syncing--正在同步"$my_image_name
