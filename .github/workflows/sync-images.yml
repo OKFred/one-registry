@@ -34,7 +34,6 @@ jobs:
               run: |
                   date
                   echo 'Ready to sync all to Aliyun--准备同步镜像到阿里云'
-                  source ./.github/scripts/main.sh
                   cat ./images.yaml
             - name: Checkout
               uses: actions/checkout@v3
