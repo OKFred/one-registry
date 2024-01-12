@@ -12,7 +12,7 @@ jobs:
         steps:
             - name: Clone repository
               uses: actions/checkout@v2
-            - name: log in to the source registry
+            - name: registry login & sync 🚩仓库登录&镜像同步
               shell: bash
               env:
                   my_src_registry_username: ${{ secrets.my_src_registry_username }}
@@ -24,5 +24,5 @@ jobs:
               run: |
                   date
                   echo 'hello there! Ready to sync all repos--准备同步镜像'
-                  sudo chmod +x ./.github/scripts/main.sh
-                  ./.github/scripts/main.sh $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url
+                  source ./.github/scripts/main.sh
+                  main $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url
