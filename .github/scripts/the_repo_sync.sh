@@ -29,8 +29,6 @@ the_repo_sync() {
     # 构建源和目标镜像的完整路径
     local src_image_path="$my_src_registry_url/$my_image_name"
     local dest_image_path="$my_dest_registry_url/$my_image_name"
-    echo $src_image_path
-    echo $dest_image_path
     # 使用 skopeo 复制镜像
     skopeo copy "docker://"$src_image_path "docker://"$dest_image_path
     date
