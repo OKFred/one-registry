@@ -15,7 +15,9 @@ the_repo_sync() {
   echo "Ready to sync all repos--准备同步镜像"
   echo "Loading repo lists--获取源 Registry 的镜像列表..."
   # 注意避坑，用curl访问需要再次登录
-  local all_images=$(curl -s -u $my_src_registry_username:$my_src_registry_password "https://${my_src_registry_url}/v2/_catalog" | jq -r '.repositories[]' | grep "$my_src_registry_url")
+  local str=$(curl -s -u $my_src_registry_username:$my_src_registry_password "https://${my_src_registry_url}/v2/_catalog")
+  local all_images=$(echo $str | jq -r '.repositories[]')
+  echo $all_images
 
   # 遍历镜像并同步
   local i=0
