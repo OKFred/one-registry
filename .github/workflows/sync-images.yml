@@ -1,0 +1,30 @@
+name: sync-images
+
+on:
+    push:
+    # 设置定时任务，每 6 小时运行一次
+    schedule:
+        - cron: "*/10 * * * *"
+
+jobs:
+    sync-images:
+        runs-on: ubuntu-22.04
+        steps:
+            # - name: Clone repository
+            #   uses: actions/checkout@v2
+            # - run: |
+            #       git config user.name github-actions
+            #       git config user.email github-actions@github.com
+            - name: log in to the source registry
+              shell: bash
+              env:
+                  my_src_registry_username: ${{ secrets.my_src_registry_username }}
+                  my_src_registry_password: ${{ secrets.my_src_registry_password }}
+                  my_src_registry_url: ${{ secrets.my_src_registry_url }}
+                  my_dest_registry_username: ${{ secrets.my_dest_registry_username }}
+                  my_dest_registry_password: ${{ secrets.my_dest_registry_password }}
+                  my_dest_registry_url: ${{ secrets.my_dest_registry_url }}
+              run: |
+                  date
+                  echo 'hello there! Ready to sync all repos--准备同步镜像'
+                  ./.github/scripts/main.sh $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url
