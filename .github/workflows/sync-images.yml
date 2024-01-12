@@ -19,6 +19,7 @@ jobs:
             my_aliyun_registry_username: ${{ secrets.my_aliyun_registry_username }}
             my_aliyun_registry_password: ${{ secrets.my_aliyun_registry_password }}
             my_aliyun_registry_namespaced_url: ${{ secrets.my_aliyun_registry_namespaced_url }}
+            my_aliyun_registry_region_server: ${{ secrets.my_aliyun_registry_region_server }}
         steps:
             - name: Clone repository
               uses: actions/checkout@v3

@@ -18,6 +18,7 @@
 -   `my_aliyun_registry_username` 阿里云仓库的用户名
 -   `my_aliyun_registry_password` 阿里云仓库的密码
 -   `my_aliyun_registry_namespaced_url` 阿里云仓库的带命名空间的地址（不需要 http/https 前缀）
+-   `my_aliyun_registry_region_server` 阿里云仓库所在区域的地址，如 registry.cn-hangzhou.aliyuncs.com（不需要 http/https 前缀）
 
 3. 项目默认为定时执行，有需要可以修改 `.github/workflows/sync-images.yml` 中的 `schedule` 字段
 
