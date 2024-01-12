@@ -16,7 +16,7 @@ the_aliyun_registry_feeder() {
 
 the_aliyun_image_file_maker(){
   sudo touch $aliyun_image_file
-  chmod 777 $aliyun_image_file
+  sudo chmod 777 $aliyun_image_file
   echo "阿里云配置文件已生成"
 }
 
