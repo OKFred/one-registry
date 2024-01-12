@@ -36,6 +36,8 @@ jobs:
                   echo 'Ready to sync all to Aliyun--准备同步镜像到阿里云'
                   cat ./images.yaml
                   echo "👆为待同步的镜像列表。"
+                  cat ./auth.yaml
+                  echo "👆为阿里云的登录信息。"
             - uses: hhyasdf/image-sync-action@v1.1
               with:
                   auth_file: ./auth.yaml # The auth information file of registries, optional.
