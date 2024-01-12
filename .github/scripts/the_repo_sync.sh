@@ -20,6 +20,7 @@ the_repo_sync() {
   all_images_arr=(${all_images_str// / })
   echo "📦Total images: "${#all_images_arr[@]}
   #检查命令可用性
+  sudo apt install sed -y
   echo "Checking skopeo--检查 skopeo 命令是否可用" && command -v skopeo >/dev/null 2>&1 || { echo >&2 "❌Skopeo is not installed. Please install it first. Skopeo 未安装，请先安装."; exit 1; }
   echo "Checking sed--检查 sed 命令是否可用" && command -v sed >/dev/null 2>&1 || { echo >&2 "❌Sed is not installed. Please install it first. Sed 未安装，请先安装."; exit 1; }
   # 遍历镜像并同步
