@@ -21,7 +21,7 @@ the_repo_sync() {
   echo "📦Total images: "${#all_images_arr[@]}
   echo "检查通过，开始同步镜像"
   # 遍历镜像并同步
-  local my_counter=0
+  my_counter=0
   for my_image in ${all_images_arr[@]}; do
     # 提取镜像名
     echo "📦镜像名："$my_image
