@@ -33,8 +33,8 @@ the_repo_sync() {
     local dest_image_path="docker://$my_dest_registry_url/$my_image_name"
 
     # 使用 skopeo 复制镜像
-    skopeo -v
-    skopeo --debug copy $src_image_path $dest_image_path
+    sudo skopeo -v
+    sudo skopeo --debug copy $src_image_path $dest_image_path
     date
     echo "✔️已同步"
   done
