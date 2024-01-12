@@ -12,7 +12,7 @@ the_repo_sync() {
   local my_dest_registry=$2
   echo "Ready to sync all repos--准备同步镜像"
   echo "Loading repo lists--获取源 Registry 的镜像列表..."
-  local all_images=$(docker images --format "{{.Repository}}" | grep "$my_src_registry")
+  local all_images=$(curl -s "https://${my_src_registry}/v2/_catalog" | jq -r '.repositories[]' | grep "$my_src_registry")
 
   # 遍历镜像并同步
   local i=0
