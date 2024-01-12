@@ -38,13 +38,12 @@ the_repo_sync() {
     echo "------------------------"
     echo "同时同步到阿里云..."$my_aliyun_registry_namespaced_url
     local aliyun_image_path="$my_aliyun_registry_namespaced_url/$my_image_name"
-    echo $aliyun_image_path" 路径"
     the_aliyun_registry_feeder $src_image_path $aliyun_image_path
+  done
     echo "------------------------"
     echo "并补充登录信息到./auth.yaml"
     echo "$my_src_registry_url:
   username: $my_src_registry_username
   password: $my_src_registry_password" >>./auth.yaml
-  done
   echo "✅all done--同步完成，总计任务数："${#all_images_arr[@]}
 }
