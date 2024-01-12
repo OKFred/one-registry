@@ -18,6 +18,10 @@ the_repo_sync() {
   local str=$(curl -s -u $my_src_registry_username:$my_src_registry_password "https://${my_src_registry_url}/v2/_catalog")
   local all_images_str=$(echo $str | jq -r '.repositories[]')
   all_images_arr=(${all_images_str// / })
+  echo "📦Total images: "${#all_images_arr[@]}
+  #检查命令可用性
+  echo "Checking skopeo--检查 skopeo 命令是否可用" && command -v skopeo >/dev/null 2>&1 || { echo >&2 "❌Skopeo is not installed. Please install it first. Skopeo 未安装，请先安装."; exit 1; }
+  echo "Checking sed--检查 sed 命令是否可用" && command -v sed >/dev/null 2>&1 || { echo >&2 "❌Sed is not installed. Please install it first. Sed 未安装，请先安装."; exit 1; }
   # 遍历镜像并同步
   local i=0
   for my_image in ${all_images_arr[@]}; do
