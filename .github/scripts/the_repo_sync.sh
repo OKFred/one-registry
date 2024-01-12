@@ -16,25 +16,22 @@ the_repo_sync() {
   echo "Loading repo lists--获取源 Registry 的镜像列表..."
   # 注意避坑，用curl访问需要再次登录
   local str=$(curl -s -u $my_src_registry_username:$my_src_registry_password "https://${my_src_registry_url}/v2/_catalog")
-  local all_images=$(echo $str | jq -r '.repositories[]')
-  echo $all_images
-
+  local all_images_str=$(echo $str | jq -r '.repositories[]')
+  all_images_arr=(${all_images_str// / })
   # 遍历镜像并同步
   local i=0
-  for my_image in $all_images; do
-
+  for my_image in ${all_images_arr[@]}; do
     # 提取镜像名
     local my_image_name=$(echo $my_image | sed "s/$my_src_registry_url\///")
     ((i++))
     echo "⌛Task."$i": syncing--正在同步"$my_image_name
-
     # 构建源和目标镜像的完整路径
     local src_image_path="docker://$my_src_registry_url/$my_image_name"
     local dest_image_path="docker://$my_dest_registry_url/$my_image_name"
-
+    echo $src_image_path
+    echo $dest_image_path
     # 使用 skopeo 复制镜像
-    sudo skopeo -v
-    sudo skopeo --debug copy $src_image_path $dest_image_path
+    skopeo copy $src_image_path $dest_image_path
     date
     echo "✔️已同步"
   done
