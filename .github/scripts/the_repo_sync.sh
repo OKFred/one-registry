@@ -21,12 +21,9 @@ the_repo_sync() {
   echo "📦Total images: "${#all_images_arr[@]}
   echo "检查通过，开始同步镜像"
   # 遍历镜像并同步
-  local i=0
   for my_image in ${all_images_arr[@]}; do
     local my_image_name=$(echo $my_image | sed "s/$my_src_registry_url\///")
-    echo "📦镜像名："$my_image_name
-    let i++
-    echo "⌛Task."$i": syncing--正在同步"$my_image_name
+    echo "📦镜像名："$my_image_name "⌛syncing--正在同步"
     # 构建源和目标镜像的完整路径
     local src_image_path="docker://$my_src_registry_url/$my_image_name"
     local dest_image_path="docker://$my_dest_registry_url/$my_image_name"
@@ -37,5 +34,5 @@ the_repo_sync() {
     date
     echo "✔️已同步"
   done
-  echo "✅all done--同步完成，总计任务数："$i
+  echo "✅all done--同步完成"
 }
