@@ -34,10 +34,6 @@ the_repo_sync() {
 
     # 使用 skopeo 复制镜像
     skopeo copy $src_image_path $dest_image_path
-    if [ $? -ne 0 ]; then
-      echo "❌sync error--同步失败"
-      return
-    fi
     date
     echo "✔️已同步"
   done
