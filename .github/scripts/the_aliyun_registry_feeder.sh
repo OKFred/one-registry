@@ -11,7 +11,7 @@ aliyun_image_file=./images.yaml
 the_aliyun_registry_feeder() {
   local my_src_image=$1
   local my_dest_image=$2
-  echo "src_image: $my_src_image" >$aliyun_image_file
+  echo "src_image: $my_src_image" >>$aliyun_image_file
 }
 
 the_aliyun_image_file_maker(){

@@ -44,7 +44,7 @@ the_repo_sync() {
     echo "并补充登录信息到./auth.yaml"
     echo "$my_src_registry_url:
   username: $my_src_registry_username
-  password: $my_src_registry_password" >./auth.yaml
+  password: $my_src_registry_password" >>./auth.yaml
   done
   echo "✅all done--同步完成，总计任务数："${#all_images_arr[@]}
 }
