@@ -8,15 +8,15 @@
 source ./.github/scripts/the_aliyun_registry_feeder.sh
 
 the_repo_sync() {
-  local my_src_registry_username=$1
-  local my_src_registry_password=$2
-  local my_src_registry_url=$3
-  local my_dest_registry_url=$4
-  local my_aliyun_registry_namespaced_url=$5
+  local MY_SRC_REGISTRY_USERNAME=$1
+  local MY_SRC_REGISTRY_PASSWORD=$2
+  local MY_SRC_REGISTRY_URL=$3
+  local MY_DEST_REGISTRY_URL=$4
+  local MY_ALIYUN_REGISTRY_NAMESPACED_URL=$5
   echo "Ready to sync all repos--准备同步镜像"
   echo "Loading repo lists--获取源 Registry 的镜像列表..."
   # 注意避坑，用curl访问需要再次登录
-  local str=$(curl -s -u $my_src_registry_username:$my_src_registry_password "https://${my_src_registry_url}/v2/_catalog")
+  local str=$(curl -s -u $MY_SRC_REGISTRY_USERNAME:$MY_SRC_REGISTRY_PASSWORD "https://${MY_SRC_REGISTRY_URL}/v2/_catalog")
   local all_images_str=$(echo $str | jq -r '.repositories[]')
   all_images_arr=(${all_images_str// / })
   echo "📦Total images: "${#all_images_arr[@]}
@@ -24,17 +24,17 @@ the_repo_sync() {
   # 遍历镜像并同步
   for my_image in ${all_images_arr[@]}; do
     # 提取镜像名
-    local my_image_name=$(echo $my_image | sed "s/$my_src_registry_url\///")
+    local my_image_name=$(echo $my_image | sed "s/$MY_SRC_REGISTRY_URL\///")
     echo "⌛syncing--正在同步"$my_image_name
     # 构建源和目标镜像的完整路径
-    local src_image_path="$my_src_registry_url/$my_image_name"
-    local dest_image_path="$my_dest_registry_url/$my_image_name"
+    local src_image_path="$MY_SRC_REGISTRY_URL/$my_image_name"
+    local dest_image_path="$MY_DEST_REGISTRY_URL/$my_image_name"
     # 使用 skopeo 复制镜像
     skopeo copy "docker://"$src_image_path "docker://"$dest_image_path
     date
     echo "✔️已同步"
-    echo "同时添加到阿里云复制任务..."$my_aliyun_registry_namespaced_url
-    local aliyun_image_path="$my_aliyun_registry_namespaced_url/$my_image_name"
+    echo "同时添加到阿里云复制任务..."$MY_ALIYUN_REGISTRY_NAMESPACED_URL
+    local aliyun_image_path="$MY_ALIYUN_REGISTRY_NAMESPACED_URL/$my_image_name"
     the_aliyun_registry_feeder $src_image_path $aliyun_image_path
   done
   echo "------------------------"

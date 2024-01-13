@@ -10,16 +10,16 @@ jobs:
     job1:
         runs-on: ubuntu-22.04
         env:
-            my_src_registry_username: ${{ secrets.my_src_registry_username }}
-            my_src_registry_password: ${{ secrets.my_src_registry_password }}
-            my_src_registry_url: ${{ secrets.my_src_registry_url }}
-            my_dest_registry_username: ${{ secrets.my_dest_registry_username }}
-            my_dest_registry_password: ${{ secrets.my_dest_registry_password }}
-            my_dest_registry_url: ${{ secrets.my_dest_registry_url }}
-            my_aliyun_registry_username: ${{ secrets.my_aliyun_registry_username }}
-            my_aliyun_registry_password: ${{ secrets.my_aliyun_registry_password }}
-            my_aliyun_registry_namespaced_url: ${{ secrets.my_aliyun_registry_namespaced_url }}
-            my_aliyun_registry_region_server: ${{ secrets.my_aliyun_registry_region_server }}
+            MY_SRC_REGISTRY_USERNAME: ${{ secrets.MY_SRC_REGISTRY_USERNAME }}
+            MY_SRC_REGISTRY_PASSWORD: ${{ secrets.MY_SRC_REGISTRY_PASSWORD }}
+            MY_SRC_REGISTRY_URL: ${{ secrets.MY_SRC_REGISTRY_URL }}
+            MY_DEST_REGISTRY_USERNAME: ${{ secrets.MY_DEST_REGISTRY_USERNAME }}
+            MY_DEST_REGISTRY_PASSWORD: ${{ secrets.MY_DEST_REGISTRY_PASSWORD }}
+            MY_DEST_REGISTRY_URL: ${{ secrets.MY_DEST_REGISTRY_URL }}
+            MY_ALIYUN_REGISTRY_USERNAME: ${{ secrets.MY_ALIYUN_REGISTRY_USERNAME }}
+            MY_ALIYUN_REGISTRY_PASSWORD: ${{ secrets.MY_ALIYUN_REGISTRY_PASSWORD }}
+            MY_ALIYUN_REGISTRY_NAMESPACED_URL: ${{ secrets.MY_ALIYUN_REGISTRY_NAMESPACED_URL }}
+            MY_ALIYUN_REGISTRY_REGION_SERVER: ${{ secrets.MY_ALIYUN_REGISTRY_REGION_SERVER }}
         steps:
             - name: Clone repository
               uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
                   date
                   echo 'hello there! Ready to sync all repos--准备同步镜像'
                   source ./.github/scripts/main.sh
-                  main $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url $my_aliyun_registry_username $my_aliyun_registry_password $my_aliyun_registry_namespaced_url
+                  main $MY_SRC_REGISTRY_USERNAME $MY_SRC_REGISTRY_PASSWORD $MY_SRC_REGISTRY_URL $MY_DEST_REGISTRY_USERNAME $MY_DEST_REGISTRY_PASSWORD $MY_DEST_REGISTRY_URL $MY_ALIYUN_REGISTRY_USERNAME $MY_ALIYUN_REGISTRY_PASSWORD $MY_ALIYUN_REGISTRY_NAMESPACED_URL
             - name: Make a images.yaml to feed aliyun-✍️投喂文件给阿里云
               shell: bash
               run: |

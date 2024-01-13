@@ -9,33 +9,33 @@ source ./.github/scripts/the_repo_login.sh
 source ./.github/scripts/the_repo_sync.sh
 
 main() {
-  local my_src_registry_username=$1
-  local my_src_registry_password=$2
-  local my_src_registry_url=$3
-  local my_dest_registry_username=$4
-  local my_dest_registry_password=$5
-  local my_dest_registry_url=$6
-  local my_aliyun_registry_username=$7
-  local my_aliyun_registry_password=$8
-  local my_aliyun_registry_namespaced_url=$9
+  local MY_SRC_REGISTRY_USERNAME=$1
+  local MY_SRC_REGISTRY_PASSWORD=$2
+  local MY_SRC_REGISTRY_URL=$3
+  local MY_DEST_REGISTRY_USERNAME=$4
+  local MY_DEST_REGISTRY_PASSWORD=$5
+  local MY_DEST_REGISTRY_URL=$6
+  local MY_ALIYUN_REGISTRY_USERNAME=$7
+  local MY_ALIYUN_REGISTRY_PASSWORD=$8
+  local MY_ALIYUN_REGISTRY_NAMESPACED_URL=$9
 
-  the_repo_login $my_src_registry_username $my_src_registry_password $my_src_registry_url
+  the_repo_login $MY_SRC_REGISTRY_USERNAME $MY_SRC_REGISTRY_PASSWORD $MY_SRC_REGISTRY_URL
   if [ $? -ne 0 ]; then
     echo "❌error--登录失败"
     return 1
   fi
-  the_repo_login $my_dest_registry_username $my_dest_registry_password $my_dest_registry_url
+  the_repo_login $MY_DEST_REGISTRY_USERNAME $MY_DEST_REGISTRY_PASSWORD $MY_DEST_REGISTRY_URL
   if [ $? -ne 0 ]; then
     echo "❌error--登录失败"
     return 1
   fi
-  the_repo_sync $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_url $my_aliyun_registry_namespaced_url
+  the_repo_sync $MY_SRC_REGISTRY_USERNAME $MY_SRC_REGISTRY_PASSWORD $MY_SRC_REGISTRY_URL $MY_DEST_REGISTRY_URL $MY_ALIYUN_REGISTRY_NAMESPACED_URL
   echo "------------------------"
   echo "准备同步到阿里云，生成./auth.yaml"
-  echo "$my_aliyun_registry_namespaced_url:
-  username: $my_aliyun_registry_username
-  password: $my_aliyun_registry_password
-$my_src_registry_url:
-  username: $my_src_registry_username
-  password: $my_src_registry_password" >./auth.yaml
+  echo "$MY_ALIYUN_REGISTRY_NAMESPACED_URL:
+  username: $MY_ALIYUN_REGISTRY_USERNAME
+  password: $MY_ALIYUN_REGISTRY_PASSWORD
+$MY_SRC_REGISTRY_URL:
+  username: $MY_SRC_REGISTRY_USERNAME
+  password: $MY_SRC_REGISTRY_PASSWORD" >./auth.yaml
 }
