@@ -30,4 +30,12 @@ main() {
     return 1
   fi
   the_repo_sync $my_src_registry_username $my_src_registry_password $my_src_registry_url $my_dest_registry_url $my_aliyun_registry_namespaced_url
+  echo "------------------------"
+  echo "准备同步到阿里云，生成./auth.yaml"
+  echo "$my_aliyun_registry_namespaced_url:
+  username: $my_aliyun_registry_username
+  password: $my_aliyun_registry_password
+$my_src_registry_url:
+  username: $my_src_registry_username
+  password: $my_src_registry_password" >./auth.yaml
 }

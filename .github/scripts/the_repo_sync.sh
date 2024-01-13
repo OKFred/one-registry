@@ -29,21 +29,14 @@ the_repo_sync() {
     # 构建源和目标镜像的完整路径
     local src_image_path="$my_src_registry_url/$my_image_name"
     local dest_image_path="$my_dest_registry_url/$my_image_name"
-    echo $src_image_path
-    echo $dest_image_path
     # 使用 skopeo 复制镜像
     skopeo copy "docker://"$src_image_path "docker://"$dest_image_path
     date
     echo "✔️已同步"
-    echo "------------------------"
-    echo "同时同步到阿里云..."$my_aliyun_registry_namespaced_url
+    echo "同时添加到阿里云复制任务..."$my_aliyun_registry_namespaced_url
     local aliyun_image_path="$my_aliyun_registry_namespaced_url/$my_image_name"
     the_aliyun_registry_feeder $src_image_path $aliyun_image_path
   done
-    echo "------------------------"
-    echo "并补充登录信息到./auth.yaml"
-    echo "$my_src_registry_url:
-  username: $my_src_registry_username
-  password: $my_src_registry_password" >>./auth.yaml
+  echo "------------------------"
   echo "✅all done--同步完成，总计任务数："${#all_images_arr[@]}
 }

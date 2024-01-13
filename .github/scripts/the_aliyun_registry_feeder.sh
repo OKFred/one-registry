@@ -7,6 +7,7 @@
 #⚠️import--需要引入包含函数的文件
 # none
 aliyun_image_file=./images.yaml
+aliyun_auth_file=./auth.yaml
 
 the_aliyun_registry_feeder() {
   local my_src_image=$1
@@ -14,10 +15,17 @@ the_aliyun_registry_feeder() {
   echo "$my_src_image: $my_dest_image" >>$aliyun_image_file
 }
 
-the_aliyun_image_file_maker(){
-  sudo touch $aliyun_image_file
+the_aliyun_image_file_maker() {
+  # sudo touch $aliyun_image_file
   sudo chmod 777 $aliyun_image_file
-  echo "阿里云配置文件已生成"
+  echo "阿里云镜像💿配置文件已生成"
+}
+
+the_aliyun_auth_file_maker() {
+  # sudo touch $aliyun_auth_file
+  sudo chmod 777 $aliyun_auth_file
+  echo "阿里云鉴权🔑配置文件已生成"
 }
 
 the_aliyun_image_file_maker
+the_aliyun_auth_file_maker
