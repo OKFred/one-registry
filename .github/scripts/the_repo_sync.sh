@@ -28,12 +28,15 @@ the_repo_sync() {
     echo "⌛syncing--正在同步"$my_image_name
     # 构建源和目标镜像的完整路径
     local src_image_path="$MY_SRC_REGISTRY_URL/$my_image_name"
-    local dest_image_path="$MY_DEST_REGISTRY_URL/$my_image_name"
-    # 使用 skopeo 复制镜像
-    skopeo copy "docker://"$src_image_path "docker://"$dest_image_path
-    date
-    echo "✔️已同步"
-    echo "同时添加到阿里云复制任务..."$MY_ALIYUN_REGISTRY_NAMESPACED_URL
+    #如果MY_DEST_REGISTRY_URL不为空，则登录目标仓库
+    if [ -n "$MY_DEST_REGISTRY_URL" ]; then
+      local dest_image_path="$MY_DEST_REGISTRY_URL/$my_image_name"
+      # 使用 skopeo 复制镜像
+      skopeo copy "docker://"$src_image_path "docker://"$dest_image_path
+      date
+      echo "✔️已同步"
+    fi
+    echo "添加到阿里云复制任务..."$MY_ALIYUN_REGISTRY_NAMESPACED_URL
     local aliyun_image_path="$MY_ALIYUN_REGISTRY_NAMESPACED_URL/$my_image_name"
     the_aliyun_registry_feeder $src_image_path $aliyun_image_path
   done

@@ -24,12 +24,15 @@ main() {
     echo "❌error--登录失败"
     return 1
   fi
-  the_repo_login $MY_DEST_REGISTRY_USERNAME $MY_DEST_REGISTRY_PASSWORD $MY_DEST_REGISTRY_URL
-  if [ $? -ne 0 ]; then
-    echo "❌error--登录失败"
-    return 1
+  #如果MY_DEST_REGISTRY_URL不为空，则登录目标仓库
+  if [ -n "$MY_DEST_REGISTRY_URL" ]; then
+    the_repo_login $MY_DEST_REGISTRY_USERNAME $MY_DEST_REGISTRY_PASSWORD $MY_DEST_REGISTRY_URL
+    if [ $? -ne 0 ]; then
+      echo "❌error--登录失败"
+      return 1
+    fi
+    the_repo_sync $MY_SRC_REGISTRY_USERNAME $MY_SRC_REGISTRY_PASSWORD $MY_SRC_REGISTRY_URL $MY_DEST_REGISTRY_URL $MY_ALIYUN_REGISTRY_NAMESPACED_URL
   fi
-  the_repo_sync $MY_SRC_REGISTRY_USERNAME $MY_SRC_REGISTRY_PASSWORD $MY_SRC_REGISTRY_URL $MY_DEST_REGISTRY_URL $MY_ALIYUN_REGISTRY_NAMESPACED_URL
   echo "------------------------"
   echo "准备同步到阿里云，生成./auth.yaml"
   echo "$MY_ALIYUN_REGISTRY_NAMESPACED_URL:
