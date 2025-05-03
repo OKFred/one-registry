@@ -19,6 +19,7 @@ the_repo_sync() {
   local str=$(curl -s -u $MY_SRC_REGISTRY_USERNAME:$MY_SRC_REGISTRY_PASSWORD "https://${MY_SRC_REGISTRY_URL}/v2/_catalog")
   local all_images_str=$(echo $str | jq -r '.repositories[]')
   all_images_arr=(${all_images_str// / })
+
   echo "📦Total images: "${#all_images_arr[@]}
   echo "检查通过，开始同步镜像"
   # 遍历镜像并同步
