@@ -19,7 +19,6 @@ jobs:
             MY_ALIYUN_REGISTRY_USERNAME: ${{ secrets.MY_ALIYUN_REGISTRY_USERNAME }}
             MY_ALIYUN_REGISTRY_PASSWORD: ${{ secrets.MY_ALIYUN_REGISTRY_PASSWORD }}
             MY_ALIYUN_REGISTRY_NAMESPACED_URL: ${{ secrets.MY_ALIYUN_REGISTRY_NAMESPACED_URL }}
-            MY_ALIYUN_REGISTRY_REGION_SERVER: ${{ secrets.MY_ALIYUN_REGISTRY_REGION_SERVER }}
         steps:
             - name: Clone repository
               uses: actions/checkout@v4
