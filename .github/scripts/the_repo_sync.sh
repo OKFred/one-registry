@@ -28,8 +28,8 @@ the_repo_sync() {
     echo "⌛syncing--正在同步"$my_image_name
     # 构建源和目标镜像的完整路径
     local src_image_path="$MY_SRC_REGISTRY_URL/$my_image_name"
-    #如果MY_DEST_REGISTRY_URL不为空，则登录目标仓库
-    if [ -n "$MY_DEST_REGISTRY_URL" ]; then
+    #如果MY_DEST_REGISTRY_URL不为null，则登录目标仓库
+    if [ "$MY_DEST_REGISTRY_URL" != "null" ]; then
       local dest_image_path="$MY_DEST_REGISTRY_URL/$my_image_name"
       # 使用 skopeo 复制镜像
       skopeo copy "docker://"$src_image_path "docker://"$dest_image_path

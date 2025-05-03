@@ -24,8 +24,8 @@ main() {
     echo "❌error--登录失败"
     return 1
   fi
-  #如果MY_DEST_REGISTRY_URL不为空，则登录目标仓库
-  if [ -n "$MY_DEST_REGISTRY_URL" ]; then
+  #如果MY_DEST_REGISTRY_URL不为"null"，则登录目标仓库
+  if [ "$MY_DEST_REGISTRY_URL" != "null" ]; then
     the_repo_login $MY_DEST_REGISTRY_USERNAME $MY_DEST_REGISTRY_PASSWORD $MY_DEST_REGISTRY_URL
     if [ $? -ne 0 ]; then
       echo "❌error--登录失败"

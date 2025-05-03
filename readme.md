@@ -14,7 +14,7 @@
 -   `MY_SRC_REGISTRY_URL` 源仓库的地址（不需要 http/https 前缀）
 -   `MY_DEST_REGISTRY_USERNAME` 目标仓库的用户名
 -   `MY_DEST_REGISTRY_PASSWORD` 目标仓库的密码
--   `MY_DEST_REGISTRY_URL` 目标仓库的地址（不需要 http/https 前缀）（可传""以跳过）
+-   `MY_DEST_REGISTRY_URL` 目标仓库的地址（不需要 http/https 前缀）（可传null以跳过）
 -   `MY_ALIYUN_REGISTRY_USERNAME` 阿里云仓库的用户名
 -   `MY_ALIYUN_REGISTRY_PASSWORD` 阿里云仓库的密码
 -   `MY_ALIYUN_REGISTRY_NAMESPACED_URL` 阿里云仓库的带命名空间的地址（不需要 http/https 前缀）
